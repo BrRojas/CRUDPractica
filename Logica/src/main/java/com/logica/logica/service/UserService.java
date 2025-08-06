@@ -7,16 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
-@Service
+
 public interface UserService {
 
     @Autowired
     UserResponseDTO createUser(UserRequestDTO user);
-    UserResponseDTO findByUser(String dto);
-    User upDateUser(Long id,String mail,String password);
-    List<User> findAllUsers();
-    void deleteUserById(Long id);
+    UserResponseDTO findByUser(String user);
+    UserResponseDTO upDateUser(String user,String password);
+    List<UserResponseDTO> findAllUsers();
+    String deleteUserById(String user);
 
 }

@@ -6,10 +6,12 @@ import com.logica.logica.model.User;
 import com.logica.logica.repository.UserRepository;
 import com.logica.logica.util.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
+@Service
 public class UserServiceImp implements UserService{
 
     @Autowired
@@ -34,24 +36,31 @@ public class UserServiceImp implements UserService{
     }
 
     @Override
-    public User upDateUser(Long id, String mail, String password) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() ->new RuntimeException("User by ID" + id + " not Found"));
+    public UserResponseDTO upDateUser(String user, String password) {
+        User found = userRepository.findByUser(user)
+                .orElseThrow(() -> new RuntimeException("Usuario " + user + " no encontrado"));
 
-            user.setUser(mail);
-            user.setPassword(password);
+        found.setPassword(password);
 
-            return userRepository.save(user);
+        userRepository.save(found);
+
+            return userMapper.toDTO(found);
     }
 
     @Override
-    public  List<User> findAllUsers() {
-        return userRepository.findAll();
+    public  List<UserResponseDTO> findAllUsers() {
+        List<User> users = userRepository.findAll();
 
+        return users.stream()
+                .map(userMapper::toDTO)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public void deleteUserById(Long id) {
-    userRepository.deleteById(id);
+    public String deleteUserById(String user) {
+    User found = userRepository.findByUser(user)
+            .orElseThrow(() -> new RuntimeException("Usuario " + user + " no encontrado"));
+    userRepository.delete(found);
+    return "Usuario eliminado correctamente";
     }
 }

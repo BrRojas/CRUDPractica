@@ -5,10 +5,10 @@ import com.logica.logica.dto.UserResponseDTO;
 import com.logica.logica.model.User;
 import com.logica.logica.service.UserServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/user")
@@ -23,18 +23,18 @@ public class UserController {
     };
 
 
-    @GetMapping("/{id}")
-    public UserResponseDTO findById(@PathVariable String dto){
+    @GetMapping("/{user}")
+    public UserResponseDTO findByUser(@PathVariable String dto){
         return userServiceImp.findByUser(dto);
     }
 
     @GetMapping
-    public List<User> getAllUsers(){
+    public List<UserResponseDTO> getAllUsers(){
         return userServiceImp.findAllUsers();
     }
 
     @DeleteMapping
-    public void deleteUserById(@PathVariable Long id){
-        userServiceImp.deleteUserById(id);
+    public ResponseEntity<String> deleteUserById(@PathVariable String user){
+        return ResponseEntity.ok(userServiceImp.deleteUserById(user));
     }
 }
