@@ -2,7 +2,6 @@ package com.logica.logica.controller;
 
 import com.logica.logica.dto.UserRequestDTO;
 import com.logica.logica.dto.UserResponseDTO;
-import com.logica.logica.model.User;
 import com.logica.logica.service.UserServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

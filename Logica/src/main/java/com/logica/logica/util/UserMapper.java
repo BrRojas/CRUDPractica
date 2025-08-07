@@ -3,7 +3,6 @@ package com.logica.logica.util;
 import com.logica.logica.dto.UserRequestDTO;
 import com.logica.logica.dto.UserResponseDTO;
 import com.logica.logica.model.User;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 @Component
