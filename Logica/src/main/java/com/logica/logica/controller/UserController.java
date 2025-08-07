@@ -17,19 +17,18 @@ public class UserController {
     UserServiceImp userServiceImp;
 
     @PostMapping
-    public UserResponseDTO crateUser(@RequestBody UserRequestDTO dto){
-        return userServiceImp.createUser(dto);
+    public ResponseEntity<UserResponseDTO> crateUser(@RequestBody UserRequestDTO dto){
+        return ResponseEntity.ok(userServiceImp.createUser(dto));
     };
 
-
     @GetMapping("/{user}")
-    public UserResponseDTO findByUser(@PathVariable String dto){
-        return userServiceImp.findByUser(dto);
+    public ResponseEntity<UserResponseDTO> findByUser(@PathVariable String dto){
+        return ResponseEntity.ok(userServiceImp.findByUser(dto));
     }
 
     @GetMapping
-    public List<UserResponseDTO> getAllUsers(){
-        return userServiceImp.findAllUsers();
+    public ResponseEntity<List<UserResponseDTO>> getAllUsers() {
+        return ResponseEntity.ok(userServiceImp.findAllUsers());
     }
 
     @DeleteMapping
